@@ -52,6 +52,11 @@ const dashboardListItems = {
       itemName: 'Operation',
       itemIcon: ViewList,
       itemLink: '/operation'
+    },
+    {
+      itemName: 'Route Suggestion',
+      itemIcon: Directions,
+      itemLink: '/route_suggestion'
     }
   ]
 };
@@ -130,13 +135,13 @@ class App extends Component {
   }
   render() {
     const { classes, isLoading, auth, dispatch} = this.props;
-
-    if (!auth) {
+    
+    /*if (!auth) {
       return <CircularProgress className={classes.center} size={'100px'} />;
     } else if (auth && !auth.authResult) {
       console.log('authentication failed');
       return <Redirect to='/login' />;
-    } else {
+    } else {*/
       return (
         <div className={classes.root}>
           <Header />
@@ -158,7 +163,7 @@ class App extends Component {
           </main>
         </div>
       );
-    }
+    //}
   }
 }
 

@@ -6,6 +6,7 @@ import { createBrowserHistory,createHashHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import socketMiddleware from '../websocket/middleware';
 import Configs from "./config";
+import logger from 'redux-logger'
 
 const sagaMiddleware = createSagaMiddleware();
 const env = process.env.NODE_ENV;
@@ -27,7 +28,8 @@ function configureStore(initialState) {
     initialState,
     composeSetup(
       applyMiddleware(
-        socketMiddleware(Configs[env].BACKEND_HOST),
+        logger,
+        //socketMiddleware(Configs[env].BACKEND_HOST),
         sagaMiddleware,
         routerMiddleware(history) // for dispatching history actions
       )

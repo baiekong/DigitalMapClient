@@ -1,8 +1,14 @@
 import { all, call } from 'redux-saga/effects';
-import dog from './dogSaga';
+import form from './formSaga';
 import auth from './authSaga';
+import get from './getSaga';
+
 function* rootSaga() {
-  yield all([call(dog), call(auth)]);
+  yield all([
+    call(get),
+    call(form), 
+    call(auth),
+  ]);
 }
 
 export default rootSaga;

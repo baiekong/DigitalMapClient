@@ -1,17 +1,32 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
+export const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 export default function* watcherSaga() {
+  yield call(delay, 5000)
   yield takeLatest('API_CALL_REQUEST', workerSaga);
 }
 
 // function that makes the api request and returns a Promise for response
 function fetchDog(params) {
-  
-  return fetch('https://dog.ceo/api/breeds/image/random')
+  console.log(params);
+  let url = params.payload.url || 'https://dog.ceo/api/breeds/image/random';
+  let form = params.payload.form;
+  console.log(form);
+  // for post to server
+  return fetch(url,{
+    method: "post",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    //make sure to serialize your JSON body
+    body: JSON.stringify({...form})
+  })
+  //return fetch('https://dog.ceo/api/breeds/image/random')
   .then(function(data) {
     // Here you get the data to modify as you please
-    return data.json()
+    return data
     })
   .catch(function(error) {
     // If there is any error you will catch them here
@@ -31,7 +46,7 @@ function* workerSaga(action) {
     const dog = response.message;
 
     // dispatch a success action to the store with the new dog
-    yield put({ type: 'API_CALL_SUCCESS', dog });
+    yield put({ type: 'API_CALL_SUCCESS', result:response });
   
   } catch (error) {
     // dispatch a failure action to the store with the error

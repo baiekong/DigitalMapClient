@@ -8,6 +8,10 @@ import Test from "./Components/Test";
 import Users from "./Components/Configuration/Users";
 import Setting from "./Components/Configuration/Setting";
 import Operation from "./Components/Operation";
+import LocationMaster from "./Components/LocationMaster";
+import HazardPoints from "./Components/HazardPoints";
+import RouteMaster from "./Components/RouteMaster";
+import RouteSuggestion from "./Components/RouteSuggestion";
 import { setSidebarVisibility } from './reducers/ui';
 
 const ContentRoutes = (props) => {
@@ -25,16 +29,32 @@ const ContentRoutes = (props) => {
         }}
       />
       <Route
+        path="/route_suggestion"
+        component={() => {
+          dispatch(setSidebarVisibility(false));
+          return <RouteSuggestion name="Route Suggestion" />;
+        }}
+      />
+      <Route
         path="/location_master"
-        component={() => <Foo name="Location Master" />}
+        component={() => {
+          dispatch(setSidebarVisibility(false));
+          return <LocationMaster name="Location Master" />;
+        }}
       />
       <Route
         path="/route_master"
-        component={() => <Foo name="Route Master" />}
+        component={() => {
+          dispatch(setSidebarVisibility(false));
+          return <RouteMaster name="Route Master" />;
+        }}
       />
       <Route
         path="/hazard_point"
-        component={() => <Foo name="Hazard Points" />}
+        component={() => {
+          dispatch(setSidebarVisibility(false));
+          return <HazardPoints name="Hazard Points" />;
+        }}
       />
       <Route path="/users" component={() => <Users name="Users" />} />
       <Route path="/settings" component={() => <Setting name="Settings" />} />
